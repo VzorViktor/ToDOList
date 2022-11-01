@@ -1,19 +1,31 @@
-<h1>Мой список дел</h1>
+{% if request.user.is_authenticated %}
+    <p>{{request.user}}</p>
+    <a href="{% url 'logout' %}">Выход из системы</a>
+{% else %}
+<a href="{% url 'login' %}">Войти</a>
+{% endif %}
+
+<hr>
+<h1>Мой список дел {{color}}</h1>
+
 <a href="{% url 'task-create' %}">Добавить задачу</a>
+
+<form method="GET">
+    <input type="text" name="search-area" value="{{search_input}}">
+    <input type="submit" value="Поиск">
+</form>
 
 <table>
     <tr>
         <th>Пункт</th>
         <th></th>
         <th></th>
-
     </tr>
     {% for task in tasks %}
     <tr>
         <td>{{ task.title }}</td>
-        <td><a href="{% url 'task' task.id %}" >View</a></td>
-        <td><a href="{% url 'task-update' task.id %}" >Edit</a></td>
-        <td><a href="{% url 'task-delete' task.id %}" >Delete</a></td>
+        <td><a href="{% url 'task-update' task.id %}" >Редактировать</a></td>
+        <td><a href="{% url 'task-delete' task.id %}" >Удалить</a></td>
 
     </tr>
     {% empty %}

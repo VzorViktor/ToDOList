@@ -1,0 +1,10 @@
+<h1>Вход</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Вход">
+</form>
+
+
+<p>Ещё нет учётной записи?? <a href="{% url 'register' %}">Регистрация</a></p>
